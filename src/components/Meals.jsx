@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MealItem from "./MealItem";
 import useHttp from "../hooks/useHttp";
+import ErrorM from "./ErrorM";
 
 const requestConfig = {};
 
@@ -12,7 +13,11 @@ export default function Meals() {
   } = useHttp("http://localhost:3000/meals", requestConfig, []);
 
   if (isLoading) {
-    return <p>Fetching meals...</p>;
+    return <p className="center">Fetching meals...</p>;
+  }
+
+  if (error) {
+    return <ErrorM title="Failed to fetch meals." message={error} />;
   }
 
   return (
